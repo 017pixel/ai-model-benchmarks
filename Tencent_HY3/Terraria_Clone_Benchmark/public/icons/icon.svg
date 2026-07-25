@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#161821"/>
+  <!-- Grass block -->
+  <g transform="translate(96,128)">
+    <rect width="320" height="256" rx="20" fill="#7a5230"/>
+    <rect width="320" height="84" rx="20" fill="#5f9e4a"/>
+    <rect y="64" width="320" height="24" fill="#4a7d39"/>
+    <rect x="40" y="120" width="48" height="48" rx="8" fill="#6b4226"/>
+    <rect x="160" y="170" width="48" height="48" rx="8" fill="#6b4226"/>
+    <rect x="240" y="110" width="48" height="48" rx="8" fill="#6b4226"/>
+  </g>
+  <!-- Pickaxe -->
+  <g transform="translate(300,70) rotate(35)">
+    <rect x="0" y="0" width="220" height="26" rx="13" fill="#9aa0b5"/>
+    <rect x="40" y="0" width="140" height="26" rx="13" fill="#c9cedd"/>
+    <rect x="96" y="20" width="28" height="180" rx="14" fill="#6b4226"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+{
+  "name": "terraria-clone",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 4000 --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview --port 4000"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5"
+  }
+}

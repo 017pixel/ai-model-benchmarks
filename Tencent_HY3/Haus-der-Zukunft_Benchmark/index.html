@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%230c0d10'/><text x='8' y='12' font-size='9' text-anchor='middle' fill='%23c9a15a' font-family='sans-serif'>HDZ</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+    <title>Haus der Zukunft — Lokale KI &amp; Autarkie</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+
+      <div id="loading" class="loading">
+        <div class="loading-inner">
+          <div class="loading-mark">HDZ</div>
+          <div class="loading-title">HAUS DER ZUKUNFT</div>
+          <div class="loading-sub">Lokale KI · Solarenergie · Datenautarkie</div>
+          <div class="loading-bar"><div id="loading-fill" class="loading-fill"></div></div>
+          <div id="loading-status" class="loading-status">Initialisiere Szene …</div>
+        </div>
+      </div>
+
+      <div id="ui-root"></div>
+      <div id="info-panel" class="info-panel hidden"></div>
+      <div id="ai-panel" class="ai-panel hidden"></div>
+      <div id="crosshair" class="crosshair hidden"></div>
+      <div id="hint" class="hint hidden"></div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+:root {
+  --bg: #0e0f16;
+  --surface: #161821;
+  --surface2: #1f2230;
+  --accent: #5f8575;
+  --accent-lt: #8fb8a6;
+  --text: #f3f5fa;
+  --text-2: #a7adbd;
+  --danger: #e0556a;
+  --border: rgba(255, 255, 255, 0.1);
+  --radius: 14px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: none;
+}
+
+#app { position: fixed; inset: 0; }
+
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+/* Overlay */
+.bf-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 30%, rgba(95, 133, 117, 0.18), rgba(8, 9, 14, 0.92));
+  backdrop-filter: blur(6px);
+  z-index: 20;
+  padding: 20px;
+}
+
+.bf-card {
+  background: rgba(22, 24, 33, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 34px 30px;
+  width: min(420px, 92vw);
+  text-align: center;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  animation: pop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pop {
+  from { transform: scale(0.92) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.bf-logo {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--text);
+}
+.bf-logo.small { font-size: 26px; letter-spacing: 2px; }
+.bf-logo span { color: var(--accent); }
+.bf-logo.danger { color: var(--danger); }
+
+.bf-sub { color: var(--text-2); font-size: 14px; margin-top: 8px; }
+
+.bf-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+
+.bf-btn {
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: 0.18s ease-out;
+  padding: 0 18px;
+}
+.bf-btn:hover { background: #2a2e3e; }
+.bf-btn:active { transform: scale(0.97); }
+.bf-btn.primary { background: var(--accent); border-color: transparent; color: #fff; }
+.bf-btn.primary:hover { opacity: 0.9; }
+.bf-btn.ghost { background: transparent; color: var(--text-2); }
+.bf-btn.small { min-height: 38px; font-size: 13px; padding: 0 14px; }
+
+.bf-help { text-align: left; display: flex; flex-direction: column; gap: 9px; margin: 18px 0; }
+.bf-help div { font-size: 13.5px; color: var(--text-2); line-height: 1.5; }
+.bf-help b { color: var(--accent-lt); }
+
+.bf-version { margin-top: 18px; font-size: 11px; color: var(--text-2); letter-spacing: 1px; }
+
+/* Dialog */
+.bf-dialog {
+  background: rgba(22, 24, 33, 0.96);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  width: min(480px, 92vw);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  animation: pop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bf-dlg-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent-lt);
+  margin-bottom: 10px;
+}
+.bf-dlg-text { font-size: 15px; line-height: 1.65; color: var(--text); min-height: 60px; }
+.bf-dlg-btns { display: flex; gap: 10px; margin-top: 18px; }
+.bf-dlg-btns .bf-btn { flex: 1; }
+
+/* Touch-Steuerung */
+.bf-touch { position: fixed; inset: 0; pointer-events: none; z-index: 15; display: none; }
+.bf-touch.active { display: block; }
+.bf-dpad { position: absolute; left: 18px; bottom: 24px; display: flex; gap: 10px; }
+.bf-actions { position: absolute; right: 18px; bottom: 24px; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+.bf-tops { position: absolute; right: 18px; top: 90px; }
+.bf-tbtn {
+  pointer-events: auto;
+  width: 64px; height: 64px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: rgba(31, 34, 48, 0.7);
+  color: #fff; font-size: 22px; font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+.bf-tbtn:active { background: var(--accent); transform: scale(0.94); }
+.bf-tbtn.mode { width: 52px; height: 52px; font-size: 16px; }

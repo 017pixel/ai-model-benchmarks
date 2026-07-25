@@ -1,0 +1,23 @@
+{
+  "name": "BlockForge",
+  "short_name": "BlockForge",
+  "description": "Ein Terraria-artiger 2D-Sandbox im Browser mit Survival, Creative, Monstern, Boss und NPCs.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#0e0f16",
+  "theme_color": "#161821",
+  "categories": ["games"],
+  "lang": "de",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

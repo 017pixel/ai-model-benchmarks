@@ -1,0 +1,17 @@
+{
+  "name": "minecraft-clone",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 4000 --host",
+    "build": "vite build",
+    "preview": "vite preview --port 4000 --host"
+  },
+  "dependencies": {
+    "three": "^0.160.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

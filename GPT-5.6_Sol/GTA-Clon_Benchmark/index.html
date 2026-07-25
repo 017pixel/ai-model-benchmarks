@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#0d1012" />
+    <meta name="description" content="Pacifica Drive - eine prozedurale Open-World-Grafikstudie im Browser." />
+    <title>Pacifica Drive</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="world" aria-label="Interaktive 3D-Stadt"></canvas>
+
+      <div class="cinema-bars" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <section id="loader" class="loader" aria-live="polite">
+        <div class="loader__brand">
+          <span class="eyebrow">A REALTIME WORLD</span>
+          <h1>PACIFICA<br />DRIVE</h1>
+          <div class="loader__rule"><span id="load-progress"></span></div>
+          <p id="load-status">Stadt wird konstruiert</p>
+        </div>
+      </section>
+
+      <header class="telemetry ui-panel">
+        <div>
+          <span class="eyebrow">PACIFICA COUNTY</span>
+          <strong id="district">MARINA DISTRICT</strong>
+        </div>
+        <div class="telemetry__time">
+          <span id="clock">18:42</span>
+          <small id="weather">CLEAR · 24°C</small>
+        </div>
+      </header>
+
+      <aside class="quality ui-panel" aria-label="Rendering-Qualität">
+        <span class="quality__dot"></span>
+        <span id="quality-label">ULTRA · GTAO · SSR</span>
+      </aside>
+
+      <div class="speedometer" aria-label="Geschwindigkeit">
+        <span id="speed">000</span>
+        <div>
+          <b>KM/H</b>
+          <span id="gear">D1</span>
+        </div>
+      </div>
+
+      <div class="minimap ui-panel" aria-hidden="true">
+        <div class="minimap__grid"></div>
+        <div class="minimap__coast"></div>
+        <div class="minimap__player"></div>
+        <span>N</span>
+      </div>
+
+      <div id="hint" class="hint ui-panel">
+        <span>WASD</span> Fahren <i></i> <span>SPACE</span> Handbremse <i></i> <span>C</span> Kamera
+      </div>
+
+      <div class="touch-controls" aria-label="Touch-Steuerung">
+        <div class="touch-steer">
+          <button data-control="left" aria-label="Links lenken">‹</button>
+          <button data-control="right" aria-label="Rechts lenken">›</button>
+        </div>
+        <div class="touch-pedals">
+          <button data-control="brake" aria-label="Bremsen">BRAKE</button>
+          <button data-control="throttle" aria-label="Beschleunigen">DRIVE</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

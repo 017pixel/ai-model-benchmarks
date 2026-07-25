@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Voxel World</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #87b6e8; }
+    #app { position: fixed; inset: 0; }
+    canvas { display: block; }
+
+    :root {
+      --ink: #f4f4f4;
+      --panel: rgba(12, 14, 18, 0.55);
+      --line: rgba(255, 255, 255, 0.18);
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    /* Crosshair */
+    #crosshair {
+      position: fixed; left: 50%; top: 50%;
+      width: 22px; height: 22px; transform: translate(-50%, -50%);
+      pointer-events: none; opacity: 0.85; z-index: 5;
+    }
+    #crosshair::before, #crosshair::after {
+      content: ""; position: absolute; background: var(--ink);
+    }
+    #crosshair::before { left: 50%; top: 0; width: 2px; height: 100%; transform: translateX(-50%); }
+    #crosshair::after { top: 50%; left: 0; height: 2px; width: 100%; transform: translateY(-50%); }
+
+    /* HUD */
+    #hud { position: fixed; inset: 0; pointer-events: none; z-index: 4; color: var(--ink); }
+
+    #hearts { position: absolute; top: 14px; left: 16px; display: flex; gap: 4px; }
+    .heart {
+      width: 18px; height: 18px;
+      background: #c0392b;
+      clip-path: path('M9 16 L1.5 8.5 A3.6 3.6 0 0 1 9 5 A3.6 3.6 0 0 1 16.5 8.5 Z');
+    }
+    .heart.empty { background: rgba(255,255,255,0.14); }
+
+    #mode {
+      position: absolute; top: 14px; right: 16px;
+      padding: 6px 12px; background: var(--panel);
+      border: 1px solid var(--line); font-size: 13px; letter-spacing: 1px;
+    }
+
+    #hotbar {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px;
+    }
+    .slot {
+      width: 52px; height: 52px; background: var(--panel);
+      border: 1px solid var(--line); position: relative;
+      display: flex; align-items: flex-end; justify-content: flex-start;
+    }
+    .slot .swatch {
+      position: absolute; inset: 6px; border: 1px solid rgba(0,0,0,0.35);
+    }
+    .slot .num { position: relative; font-size: 11px; padding: 2px 4px; z-index: 2; }
+    .slot.active { border-color: #fff; box-shadow: 0 0 0 1px #fff inset; }
+
+    #toast {
+      position: absolute; top: 54px; left: 50%; transform: translateX(-50%);
+      font-size: 13px; background: var(--panel); padding: 5px 10px;
+      border: 1px solid var(--line); opacity: 0; transition: opacity .25s;
+    }
+
+    /* Overlay */
+    #overlay {
+      position: fixed; inset: 0; z-index: 10;
+      background: rgba(8, 10, 14, 0.78);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--ink); text-align: center; gap: 14px; cursor: pointer;
+    }
+    #overlay h1 { font-size: 34px; letter-spacing: 6px; font-weight: 700; }
+    #overlay .sub { font-size: 13px; opacity: 0.8; line-height: 1.9; max-width: 460px; }
+    #overlay .play { margin-top: 8px; padding: 12px 26px; border: 1px solid var(--line); font-size: 14px; letter-spacing: 2px; }
+    #overlay kbd {
+      border: 1px solid var(--line); padding: 1px 6px; border-radius: 3px;
+      background: rgba(255,255,255,0.06); font-size: 12px;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="crosshair" class="hidden"></div>
+
+  <div id="hud" class="hidden">
+    <div id="hearts"></div>
+    <div id="mode">SURVIVAL</div>
+    <div id="toast"></div>
+    <div id="hotbar"></div>
+  </div>
+
+  <div id="overlay">
+    <h1>VOXEL WORLD</h1>
+    <div class="sub">
+      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Bewegen &nbsp; <kbd>Space</kbd> Springen / Fliegen &nbsp; <kbd>Shift</kbd> Sneak / Sinken<br/>
+      <kbd>Maus</kbd> Umsehen &nbsp; <kbd>Linksklick</kbd> Abbauen / Angreifen &nbsp; <kbd>Rechtsklick</kbd> Bauen<br/>
+      <kbd>1</kbd>–<kbd>9</kbd> / Scrollen Block wählen &nbsp; <kbd>F</kbd> Survival ⇄ Creative<br/>
+      Überlebe die Monster — oder kämpfe im PvP gegen den anderen Spieler.
+    </div>
+    <div class="play">KLICKEN ZUM SPIELEN</div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
