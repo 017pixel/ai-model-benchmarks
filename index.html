@@ -6,150 +6,276 @@
 <title>AI Model Benchmarks</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #f7f7f5; color: #1a1a1a; line-height: 1.6; }
-a { color: #2563eb; text-decoration: none; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #121212;
+  color: #f5f5f5;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: #5f8575; text-decoration: none; }
 a:hover { text-decoration: underline; }
-.max-width { max-width: 960px; margin: 0 auto; padding: 0 24px; }
-.header { background: #1a1a1a; color: #fff; padding: 64px 0 48px; }
-.header h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 8px; }
-.header p { font-size: 1.05rem; color: #a0a0a0; max-width: 640px; }
-.section { padding: 40px 0; border-top: 1px solid #e5e5e5; }
-.section:first-of-type { border-top: none; }
-.section-title { font-size: 1.35rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.model-tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+
+/* Layout */
+.header {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 48px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.description {
+  font-size: 1.05rem;
+  color: #a0a0a0;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Sections */
+.section {
+  padding: 48px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1c1c1e;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  border-color: rgba(95,133,117,0.3);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.card-meta {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-bottom: 12px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: #a0a0a0;
+  line-height: 1.6;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 8px;
+}
+
+.badge-source { background: rgba(201,125,83,0.15); color: #c95d53; }
+.badge-built { background: rgba(107,159,110,0.15); color: #6b9f6e; }
+
+/* Model Tags */
+.model-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
 .tag-glm52 { background: #dbeafe; color: #1e40af; }
 .tag-glm52turbo { background: #ede9fe; color: #6b21a8; }
 .tag-gpt56 { background: #d1fae5; color: #065f46; }
 .tag-tencent { background: #fef3c7; color: #92400e; }
-.tag-prompts { background: #fce7f3; color: #9d174d; }
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-.card { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px 20px; transition: box-shadow 0.15s, border-color 0.15s; }
-.card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); border-color: #d0d0d0; }
-.card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
-.card .meta { font-size: 0.8rem; color: #888; margin-bottom: 8px; }
-.card .desc { font-size: 0.85rem; color: #555; line-height: 1.5; }
-.card .link { display: inline-block; margin-top: 8px; font-size: 0.8rem; font-weight: 500; }
-.card .link::after { content: " →"; font-size: 0.7rem; }
-.prompt-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
-.prompt-list li { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 12px 16px; font-size: 0.9rem; }
-.prompt-list li code { font-family: "SF Mono", Monaco, Consolas, monospace; font-size: 0.82rem; background: #f3f3f3; padding: 1px 5px; border-radius: 4px; }
-.badge { display: inline-block; font-size: 0.65rem; font-weight: 600; padding: 1px 6px; border-radius: 8px; text-transform: uppercase; vertical-align: middle; margin-left: 6px; }
-.badge-built { background: #d1fae5; color: #065f46; }
-.badge-source { background: #fef3c7; color: #92400e; }
-.footer { padding: 32px 0; text-align: center; font-size: 0.8rem; color: #999; border-top: 1px solid #e5e5e5; margin-top: 32px; }
+
+/* Prompts Section */
+.prompt-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.prompt-item {
+  background: #1c1c1e;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+
+.prompt-item:hover {
+  border-color: rgba(95,133,117,0.3);
+}
+
+.prompt-code {
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  background: rgba(95,133,117,0.1);
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: #5f8575;
+}
+
+/* Footer */
+.footer {
+  padding: 32px 0;
+  text-align: center;
+  color: #6e6e72;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 48px;
+}
 </style>
 </head>
 <body>
 <div class="header">
-<div class="max-width">
-<h1>AI Model Benchmarks</h1>
-<p>Vergleich verschiedener KI-Modelle beim Erstellen von Browser-Spielen und Web-Projekten. Jedes Modell wurde mit denselben Projektanforderungen getestet.</p>
+<div class="container">
+<div class="title">AI Model Benchmarks</div>
+<div class="description">Vergleich verschiedener KI-Modelle beim Erstellen von Browser-Spielen und Web-Projekten. Jedes Modell wurde mit denselben Projektanforderungen getestet.</div>
 </div>
 </div>
 
-<div class="max-width">
+<div class="container">
 
 <div class="section">
-<h2 class="section-title">🧠 GLM 5.2 <span class="model-tag tag-glm52">Zhipu AI</span></h2>
+<div class="section-title">🧠 GLM 5.2 <span class="model-tag tag-glm52">Zhipu AI</span></div>
 <div class="card-grid">
 <div class="card">
-<h3>Terraria Clone <span class="badge badge-source">Source</span></h3>
-<div class="meta">TypeScript / Vite / 2D</div>
-<div class="desc">Prozedural generierte 2D-Sandbox mit Blockbau, Kampfsystem, NSCs, Bosskämpfen, Creative/Survival-Modus und lokalem PvP.</div>
-<a class="link" href="GLM_5.2/Terraria_Clone_Benchmark/index.html">Projekt öffnen</a>
+<div class="card-title">Terraria Clone <span class="badge badge-source">Source</span></div>
+<div class="card-meta">TypeScript / Vite / 2D</div>
+<div class="card-desc">Prozedural generierte 2D-Sandbox mit Blockbau, Kampfsystem, NPCs, Bosskämpfen, Creative/Survival-Modus und lokalem PvP.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/GLM_5.2/Terraria_Clone_Benchmark/" target="_blank">Projekt öffnen</a>
 </div>
 </div>
 </div>
 
 <div class="section">
-<h2 class="section-title">🧠 GLM 5.2 + GLM 5 Turbo <span class="model-tag tag-glm52turbo">Zhipu AI</span></h2>
+<div class="section-title">🧠 GLM 5.2 + GLM 5 Turbo <span class="model-tag tag-glm52turbo">Zhipu AI</span></div>
 <div class="card-grid">
 <div class="card">
-<h3>Terraria Clone <span class="badge badge-source">Source</span></h3>
-<div class="meta">TypeScript / Vite / 2D</div>
-<div class="desc">Terraria-Klon erstellt durch Kombination von GLM 5.2 und GLM 5 Turbo. Zwei-Schritte-Architektur für höhere Qualität.</div>
-<a class="link" href="GLM_5.2_und_GLM_5_Turbo_(zsm-Arbeit)/Terraria_Clone_Benchmark/index.html">Projekt öffnen</a>
+<div class="card-title">Terraria Clone <span class="badge badge-source">Source</span></div>
+<div class="card-meta">TypeScript / Vite / 2D</div>
+<div class="card-desc">Terraria-Klon erstellt durch Kombination von GLM 5.2 und GLM 5 Turbo. Zwei-Schritte-Architektur für höhere Qualität.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/GLM_5.2_und_GLM_5_Turbo_%28zsm-Arbeit%29/Terraria_Clone_Benchmark/" target="_blank">Projekt öffnen</a>
 </div>
 </div>
 </div>
 
 <div class="section">
-<h2 class="section-title">🤖 GPT-5.6 (ChatGPT Codex) <span class="model-tag tag-gpt56">OpenAI</span></h2>
+<div class="section-title">🤖 GPT-5.6 <span class="model-tag tag-gpt56">OpenAI</span></div>
 <div class="card-grid">
 <div class="card">
-<h3>Pacifica Drive (GTA Clone) <span class="badge badge-built">Built</span></h3>
-<div class="meta">Three.js / PBR / 3D</div>
-<div class="desc">Prozedurale Open-World-Grafikstudie mit realistischer Stadt, PBR-Materialien, dynamischer Beleuchtung und Fahrzeug-Steuerung.</div>
-<a class="link" href="GPT-5.6_Sol/GTA-Clon_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">Pacifica Drive (GTA Clone) <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Three.js / PBR / 3D</div>
+<div class="card-desc">Prozedurale Open-World-Grafikstudie mit realistischer Stadt, PBR-Materialien, dynamischer Beleuchtung und Fahrzeug-Steuerung.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/GPT-5.6_Sol/GTA-Clon_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 <div class="card">
-<h3>Minecraft Clone <span class="badge badge-built">Built</span></h3>
-<div class="meta">Three.js / 3D</div>
-<div class="desc">3D-Voxel-Welt mit Crafting, Survival- und Creative-Modus, Zerstörung und Platzierung von Blöcken in Echtzeit.</div>
-<a class="link" href="GPT-5.6_Sol/Minecraft_Clone_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">Minecraft Clone <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Three.js / 3D</div>
+<div class="card-desc">3D-Voxel-Welt mit Crafting, Survival- und Creative-Modus, Zerstörung und Platzierung von Blöcken in Echtzeit.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/GPT-5.6_Sol/Minecraft_Clone_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 <div class="card">
-<h3>ROOFLINE (Parcour World) <span class="badge badge-built">Built</span></h3>
-<div class="meta">Three.js / First-Person / 3D</div>
-<div class="desc">Frei erkundbares Parkour-Spiel mit 21 Gebäuden, Dachrouten, Wall Runs, Double Jumps und momentum-basiertem Gameplay.</div>
-<a class="link" href="GPT-5.6_Sol/Parcour_World_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">ROOFLINE <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Three.js / First-Person / 3D</div>
+<div class="card-desc">Frei erkundbares Parkour-Spiel mit 21 Gebäuden, Dachrouten, Wall Runs, Double Jumps und momentum-basiertem Gameplay.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/GPT-5.6_Sol/Parcour_World_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 <div class="card">
-<h3>Deepward (Terraria Clone) <span class="badge badge-built">Built</span></h3>
-<div class="meta">Three.js / 2D / WebGPU</div>
-<div class="desc">Prozedurales 2D-Sandbox-Abenteuer mit lokalem Speicher in localStorage, NPCs, Bosskämpfen, PvP und mehreren Welten.</div>
-<a class="link" href="GPT-5.6_Sol/Terraria_Clone_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">Deepward <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Three.js / 2D / WebGPU</div>
+<div class="card-desc">Prozedurales 2D-Sandbox-Abenteuer mit lokalem Speicher in localStorage, NPCs, Bosskämpfen, PvP und mehreren Welten.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/GPT-5.6_Sol/Terraria_Clone_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 </div>
 </div>
 
 <div class="section">
-<h2 class="section-title">🧠 Tencent HY 3 <span class="model-tag tag-tencent">Tencent</span></h2>
+<div class="section-title">🧠 Tencent HY 3 <span class="model-tag tag-tencent">Tencent</span></div>
 <div class="card-grid">
 <div class="card">
-<h3>Portfolio Benchmark <span class="badge badge-built">Built</span></h3>
-<div class="meta">Vite / Web</div>
-<div class="desc">Personal Portfolio-Webseite, basierend auf dem GitHub-Profil von 017pixel mit KI-generierten Inhalten und Design.</div>
-<a class="link" href="Tencent_HY3/Portfolio_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">Portfolio Benchmark <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Vite / Web</div>
+<div class="card-desc">Personal Portfolio-Webseite, basierend auf dem GitHub-Profil von 017pixel mit KI-generierten Inhalten und Design.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/Tencent_HY3/Portfolio_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 <div class="card">
-<h3>Minecraft Clone <span class="badge badge-built">Built</span></h3>
-<div class="meta">Vite / WebGL</div>
-<div class="desc">3D-Voxel-Welt mit Platzier- und Abbausystem, Crafting und verschiedenen Biomen.</div>
-<a class="link" href="Tencent_HY3/Minecraft-Clone_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">Minecraft Clone <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Vite / WebGL</div>
+<div class="card-desc">3D-Voxel-Welt mit Platzier- und Abbausystem, Crafting und verschiedenen Biomen.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/Tencent_HY3/Minecraft-Clone_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 <div class="card">
-<h3>Terraria Clone <span class="badge badge-built">Built</span></h3>
-<div class="meta">Vite / 2D</div>
-<div class="desc">2D-Sandbox-Klon mit Blockbau, Gegnern, NSCs und Crafting-System.</div>
-<a class="link" href="Tencent_HY3/Terraria_Clone_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">Terraria Clone <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Vite / 2D</div>
+<div class="card-desc">2D-Sandbox-Klon mit Blockbau, Gegnern, NPCs und Crafting-System.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/Tencent_HY3/Terraria_Clone_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 <div class="card">
-<h3>Haus der Zukunft <span class="badge badge-built">Built</span></h3>
-<div class="meta">Three.js / 3D</div>
-<div class="desc">Interaktive 3D-Visualisierung eines platzoptimierten Hauses der Zukunft mit Smart-Home-Systemen und Energiekonzepten.</div>
-<a class="link" href="Tencent_HY3/Haus-der-Zukunft_Benchmark/dist/index.html">Demo starten</a>
+<div class="card-title">Haus der Zukunft <span class="badge badge-built">Built</span></div>
+<div class="card-meta">Three.js / 3D</div>
+<div class="card-desc">Interaktive 3D-Visualisierung eines platzoptimierten Hauses der Zukunft mit Smart-Home-Systemen und Energiekonzepten.</div>
+<a href="https://017pixel.github.io/ai-model-benchmarks/Tencent_HY3/Haus-der-Zukunft_Benchmark/dist/" target="_blank">Demo starten</a>
 </div>
 </div>
 </div>
 
 <div class="section">
-<h2 class="section-title">📝 Prompts <span class="model-tag tag-prompts">Dokumentation</span></h2>
+<div class="section-title">📝 Prompts</div>
 <ul class="prompt-list">
-<li><code>Terraria-Clone.md</code> – Terraria Clone Prompt (alle Modelle)</li>
-<li><code>Minecraft-Clone.md</code> – Minecraft Clone Prompt</li>
-<li><code>GTA_Clon_Benchmark.md</code> – GTA Clone Prompt (höchste Qualitätsanforderungen)</li>
-<li><code>Parcour-World.md</code> – Parcour World Prompt (Three.js, vollständiges Parkour-System)</li>
-<li><code>Portfolio.md</code> – Portfolio Prompt (basiert auf GitHub-Profil)</li>
-<li><code>Haus_der_Zukunft.md</code> – Haus der Zukunft Prompt (3D-Visualisierung)</li>
+<li class="prompt-item"><code class="prompt-code">Terraria-Clone.md</code> – Terraria Clone Prompt (alle Modelle)</li>
+<li class="prompt-item"><code class="prompt-code">Minecraft-Clone.md</code> – Minecraft Clone Prompt</li>
+<li class="prompt-item"><code class="prompt-code">GTA_Clon_Benchmark.md</code> – GTA Clone Prompt (höchste Qualitätsanforderungen)</li>
+<li class="prompt-item"><code class="prompt-code">Parcour-World.md</code> – Parcour World Prompt (Three.js, vollständiges Parkour-System)</li>
+<li class="prompt-item"><code class="prompt-code">Portfolio.md</code> – Portfolio Prompt (basiert auf GitHub-Profil)</li>
+<li class="prompt-item"><code class="prompt-code">Haus_der_Zukunft.md</code> – Haus der Zukunft Prompt (3D-Visualisierung)</li>
 </ul>
 </div>
 
 </div>
 
 <div class="footer">
-<div class="max-width">
-AI Model Benchmarks &copy; 2026 Benjamin Becker &middot; <a href="https://github.com/017pixel/ai-model-benchmarks">GitHub Repository</a>
+<div class="container">
+AI Model Benchmarks © 2026 Benjamin Becker · <a href="https://github.com/017pixel/ai-model-benchmarks">GitHub Repository</a>
 </div>
 </div>
 </body>
